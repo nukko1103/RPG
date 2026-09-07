@@ -19,7 +19,7 @@
     <div id="nazo">
       <img src="katatataki.JPG" alt="問題">
     </div>
-    <div id="question">ここに問題文を書く</div>
+    <div id="question"> </div>
     <input id="answer" type="text" placeholder="答えを入力">
     <button id="checkBtn">答える</button>
     <div id="result" style="margin-top:12px;color:#007700"></div>
@@ -38,6 +38,8 @@
       text: '画像の問題',
       answer: 'たぬき'
     };
+
+    questionEl.textContent = '用いるアイテムを入力してください'
 
     function check() {
       const given = answerEl.value.trim();
