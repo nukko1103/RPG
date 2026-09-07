@@ -6,7 +6,7 @@
   <title>RPG謎解き</title>
   <style>
     body{font-family:system-ui, -apple-system, "Helvetica Neue", Arial; padding:24px;}
-    #container{max-width:640px;margin:0 auto}
+    #container{max-width:320px;margin:0 auto}
     #question{margin-bottom:12px;font-size:18px}
     #question img {
   width:15px; /* 好きなサイズに調整 */
@@ -72,14 +72,6 @@
         resultEl.textContent = '不正解です。もう一度試してください。';
       }
 
-      const sampleQuestion = {
-      text: '画像の問題',
-      answer: 'かき'
-    };
-      if (given === sampleQuestion.answer) {
-        resultEl.style.color = '#007700';
-        resultEl.textContent = '正解！おめでとうございます';
-    }
 
     checkBtn.addEventListener('click', check);
     answerEl.addEventListener('keydown', (e) => { if (e.key === 'Enter') check(); });
