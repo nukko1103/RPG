@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>RPG謎解き</title>
+  <style>
+    body{font-family:system-ui, -apple-system, "Helvetica Neue", Arial; padding:24px;}
+    #container{max-width:640px;margin:0 auto}
+    #question{margin-bottom:12px;font-size:18px}
+    #answer{padding:8px;width:100%;box-sizing:border-box;margin-bottom:8px}
+    button{padding:8px 12px}
+  </style>
+</head>
+<body>
+  <div id="container">
+    <h1>RPG謎解き</h1>
+    <div id="question">ここに問題が表示されます。</div>
+    <input id="answer" type="text" placeholder="答えを入力">
+    <button id="checkBtn">答える</button>
+    <div id="result" style="margin-top:12px;color:#007700"></div>
+  </div>
+
+  <script>
+    // 簡易なダミー実装。main.js がない場合でも動作します。
+    const questionEl = document.getElementById('question');
+    const answerEl = document.getElementById('answer');
+    const resultEl = document.getElementById('result');
+    const checkBtn = document.getElementById('checkBtn');
+
+    // サンプル問題（必要に応じて main.js を追加してください）
+    const sampleQuestion = {
+      text: '数列 2, 4, 6, ? の次の数字は？',
+      answer: '8'
+    };
+
+    questionEl.textContent = sampleQuestion.text;
+
+    function check() {
+      const given = answerEl.value.trim();
+      if (!given) {
+        resultEl.style.color = '#aa0000';
+        resultEl.textContent = '答えを入力してください。';
+        return;
+      }
+      if (given === sampleQuestion.answer) {
+        resultEl.style.color = '#007700';
+        resultEl.textContent = '正解！おめでとうございます。';
+      } else {
+        resultEl.style.color = '#aa0000';
+        resultEl.textContent = '不正解です。もう一度試してください。';
+      }
+    }
+
+    checkBtn.addEventListener('click', check);
+    answerEl.addEventListener('keydown', (e) => { if (e.key === 'Enter') check(); });
+  </script>
+</body>
+</html>
