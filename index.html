@@ -16,9 +16,10 @@
 <body>
   <div id="container">
     <h1>RPG謎解き</h1>
-    <div id="question">
+    <div id="nazo">
       <img src="katatataki.JPG" alt="問題">
     </div>
+    <div id="question">ここに問題文を書く</div>
     <input id="answer" type="text" placeholder="答えを入力">
     <button id="checkBtn">答える</button>
     <div id="result" style="margin-top:12px;color:#007700"></div>
@@ -26,6 +27,7 @@
 
   <script>
     // 簡易なダミー実装。main.js がない場合でも動作します。
+    const nazoEl = document.getElementById('nazo');
     const questionEl = document.getElementById('question');
     const answerEl = document.getElementById('answer');
     const resultEl = document.getElementById('result');
@@ -34,8 +36,10 @@
     // サンプル問題（必要に応じて main.js を追加してください）
     const sampleQuestion = {
       text: '画像の問題',
-      answer: 'かき'
+      answer: 'たぬき'
     };
+
+    nazoEl = '用いるアイテムはなに？'
 
     function check() {
       const given = answerEl.value.trim();
