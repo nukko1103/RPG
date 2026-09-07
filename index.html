@@ -39,8 +39,6 @@
       answer: 'たぬき'
     };
 
-    nazoEl = '用いるアイテムはなに？'
-
     function check() {
       const given = answerEl.value.trim();
       if (!given) {
@@ -51,6 +49,18 @@
       if (given === sampleQuestion.answer) {
         resultEl.style.color = '#007700';
         resultEl.textContent = '正解！おめでとうございます。';
+        // 正解時に画像を kaki.JPG に差し替え、問題文を「答えは？」に変更
+        const img = nazoEl.querySelector('img');
+        if (img) {
+          img.src = 'kaki.JPG';
+          img.alt = '正解の画像';
+        } else {
+          const newImg = document.createElement('img');
+          newImg.src = 'kaki.JPG';
+          newImg.alt = '正解の画像';
+          nazoEl.appendChild(newImg);
+        }
+        questionEl.textContent = '答えは？';
       } else {
         resultEl.style.color = '#aa0000';
         resultEl.textContent = '不正解です。もう一度試してください。';
