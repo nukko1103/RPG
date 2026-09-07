@@ -9,7 +9,7 @@
     #container{max-width:640px;margin:0 auto}
     #question{margin-bottom:12px;font-size:18px}
     #question img {
-  width: 50px; /* 好きなサイズに調整 */
+  width:15px; /* 好きなサイズに調整 */
   height: auto;
   display: block;
   margin: 0 auto;}
@@ -54,7 +54,7 @@
       }
       if (given === sampleQuestion.answer) {
         resultEl.style.color = '#007700';
-        resultEl.textContent = '正解！おめでとうございます。';
+        resultEl.textContent = '';
         // 正解時に画像を kaki.JPG に差し替え、問題文を「答えは？」に変更
         const img = nazoEl.querySelector('img');
         if (img) {
@@ -71,6 +71,14 @@
         resultEl.style.color = '#aa0000';
         resultEl.textContent = '不正解です。もう一度試してください。';
       }
+
+      const sampleQuestion = {
+      text: '画像の問題',
+      answer: 'かき'
+    };
+      if (given === sampleQuestion.answer) {
+        resultEl.style.color = '#007700';
+        resultEl.textContent = '正解！おめでとうございます';
     }
 
     checkBtn.addEventListener('click', check);
