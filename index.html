@@ -37,6 +37,9 @@
     const resultEl = document.getElementById('result');
     const checkBtn = document.getElementById('checkBtn');
 
+    // 問題の状態を管理
+    let stage = 'first'; // 'first' または 'second'
+
     // サンプル問題（必要に応じて main.js を追加してください）
     const sampleQuestion = {
       text: '画像の問題',
@@ -45,6 +48,19 @@
 
     questionEl.textContent = '用いるアイテムを入力してください'
 
+    // 成語判定関数
+    function isKakiIdiom(input) {
+      const idiomsWithKaki = [
+        '柿が食べたい',
+        'かきが食べたい',
+        '柿食いたい',
+        'かき食いたい',
+        '柿',
+        'かき'
+      ];
+      return idiomsWithKaki.includes(input.trim());
+    }
+
     function check() {
       const given = answerEl.value.trim();
       if (!given) {
@@ -52,26 +68,41 @@
         resultEl.textContent = '答えを入力してください。';
         return;
       }
-      if (given === sampleQuestion.answer) {
-        resultEl.style.color = '#007700';
-        resultEl.textContent = '';
-        // 正解時に画像を kaki.JPG に差し替え、問題文を「答えは？」に変更
-        const img = nazoEl.querySelector('img');
-        if (img) {
-          img.src = 'kaki.JPG';
-          img.alt = '正解の画像';
-        } else {
-          const newImg = document.createElement('img');
-          newImg.src = 'kaki.JPG';
-          newImg.alt = '正解の画像';
-          nazoEl.appendChild(newImg);
-        }
-        questionEl.textContent = '答えは？';
-      } else {
-        resultEl.style.color = '#aa0000';
-        resultEl.textContent = '不正解です。もう一度試してください。';
-      }
 
+      if (stage === 'first') {
+        // 第1問：答えが「たぬき」かどうか
+        if (given === sampleQuestion.answer) {
+          resultEl.style.color = '#007700';
+          resultEl.textContent = '';
+          // 正解時に画像を kaki.JPG に差し替え、問題文を「答えは？」に変更
+          const img = nazoEl.querySelector('img');
+          if (img) {
+            img.src = 'kaki.JPG';
+            img.alt = '正解の画像';
+          } else {
+            const newImg = document.createElement('img');
+            newImg.src = 'kaki.JPG';
+            newImg.alt = '正解の画像';
+            nazoEl.appendChild(newImg);
+          }
+          questionEl.textContent = '答えは？';
+          answerEl.value = ''; // 入力欄をクリア
+          stage = 'second'; // 次のステージへ
+        } else {
+          resultEl.style.color = '#aa0000';
+          resultEl.textContent = '不正解です。もう一度試してください。';
+        }
+      } else if (stage === 'second') {
+        // 第2問：入力が「かき」関連の成語かどうか
+        if (isKakiIdiom(given)) {
+          resultEl.style.color = '#007700';
+          resultEl.textContent = '正解です！';
+        } else {
+          resultEl.style.color = '#aa0000';
+          resultEl.textContent = '不正解です。もう一度試してください。';
+        }
+      }
+    }
 
     checkBtn.addEventListener('click', check);
     answerEl.addEventListener('keydown', (e) => { if (e.key === 'Enter') check(); });
