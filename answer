@@ -1,0 +1,26 @@
+const questions = [
+  { q: "1+1は？", a: "2" },
+  { q: "3+5は？", a: "8" }
+];
+
+let index = 0;
+
+function show() {
+  document.getElementById("question").innerText = questions[index].q;
+}
+
+function check() {
+  const ans = document.getElementById("answer").value;
+  if (ans === questions[index].a) {
+    index++;
+    if (index < questions.length) {
+      show();
+    } else {
+      alert("終了！");
+    }
+  } else {
+    alert("不正解");
+  }
+}
+
+show();
