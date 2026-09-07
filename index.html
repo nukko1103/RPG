@@ -8,11 +8,15 @@
     body{font-family:system-ui, -apple-system, "Helvetica Neue", Arial; padding:24px;}
     #container{max-width:320px;margin:0 auto}
     #question{margin-bottom:12px;font-size:18px}
-    #question img {
-  width:15px; /* 好きなサイズに調整 */
-  height: auto;
-  display: block;
-  margin: 0 auto;}
+
+    /* ← ここを修正！画像サイズは #nazo img に指定する */
+    #nazo img {
+      width:150px; 
+      height:auto;
+      display:block;
+      margin:0 auto;
+    }
+
     #answer{padding:8px;width:100%;box-sizing:border-box;margin-bottom:8px}
     button{padding:8px 12px}
   </style>
@@ -20,45 +24,43 @@
 <body>
   <div id="container">
     <h1>RPG謎解き</h1>
+
     <div id="nazo">
       <img src="katatataki.JPG" alt="問題">
     </div>
-    <div id="question"> </div>
+
+    <div id="question"></div>
+
     <input id="answer" type="text" placeholder="答えを入力">
     <button id="checkBtn">答える</button>
+
     <div id="result" style="margin-top:12px;color:#007700"></div>
   </div>
 
   <script>
-    // 簡易なダミー実装。main.js がない場合でも動作します。
     const nazoEl = document.getElementById('nazo');
     const questionEl = document.getElementById('question');
     const answerEl = document.getElementById('answer');
     const resultEl = document.getElementById('result');
     const checkBtn = document.getElementById('checkBtn');
 
-    // 問題の状態を管理
-    let stage = 'first'; // 'first' または 'second'
+    let stage = 'first';
 
-    // サンプル問題（必要に応じて main.js を追加してください）
     const sampleQuestion = {
       text: '画像の問題',
       answer: 'たぬき'
     };
 
-    questionEl.textContent = '用いるアイテムを入力してください'
+    questionEl.textContent = '用いるアイテムを入力してください';
 
-    // 正誤判定関数
     function isKakiIdiom(input) {
-      const idiomsWithKaki = [
-        '柿',
-        'かき'
-      ];
+      const idiomsWithKaki = ['柿', 'かき'];
       return idiomsWithKaki.includes(input.trim());
     }
 
     function check() {
       const given = answerEl.value.trim();
+
       if (!given) {
         resultEl.style.color = '#aa0000';
         resultEl.textContent = '答えを入力してください。';
@@ -66,30 +68,23 @@
       }
 
       if (stage === 'first') {
-        // 第1問：答えが「たぬき」かどうか
         if (given === sampleQuestion.answer) {
           resultEl.style.color = '#007700';
           resultEl.textContent = '';
-          // 正解時に画像を kaki.JPG に差し替え、問題文を「答えは？」に変更
+
           const img = nazoEl.querySelector('img');
-          if (img) {
-            img.src = 'kaki.JPG';
-            img.alt = '正解の画像';
-          } else {
-            const newImg = document.createElement('img');
-            newImg.src = 'kaki.JPG';
-            newImg.alt = '正解の画像';
-            nazoEl.appendChild(newImg);
-          }
+          img.src = 'kaki.JPG';
+          img.alt = '正解の画像';
+
           questionEl.textContent = '答えは？';
-          answerEl.value = ''; // 入力欄をクリア
-          stage = 'second'; // 次のステージへ
+          answerEl.value = '';
+          stage = 'second';
         } else {
           resultEl.style.color = '#aa0000';
           resultEl.textContent = '不正解です。もう一度試してください。';
         }
+
       } else if (stage === 'second') {
-        // 第2問：入力が「かき」関連の成語かどうか
         if (isKakiIdiom(given)) {
           resultEl.style.color = '#007700';
           resultEl.textContent = '正解です！';
